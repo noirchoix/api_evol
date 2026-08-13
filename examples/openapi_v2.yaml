@@ -1,0 +1,47 @@
+openapi: 3.1.0
+info: {title: Customer API, version: "2.0"}
+paths:
+  /accounts/{id}:
+    get:
+      operationId: getUser
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [id, primary_email]
+                properties:
+                  id: {type: string}
+                  primary_email: {type: string}
+  /orders:
+    post:
+      operationId: createOrder
+      parameters:
+        - in: header
+          name: X-Tenant-ID
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [sku, quantity]
+              properties:
+                sku: {type: string}
+                quantity: {type: integer}
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: {type: string}

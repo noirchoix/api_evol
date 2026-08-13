@@ -1,0 +1,25 @@
+services:
+  api:
+    build: ./apps/api
+    environment:
+      AEA_ENVIRONMENT: production
+      AEA_DATA_DIR: /data
+      AEA_CORS_ORIGINS: http://localhost:5173
+      AEA_ALLOW_LOCAL_EXECUTION: "0"
+    volumes:
+      - aea_data:/data
+    ports:
+      - "8000:8000"
+  web:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./apps/web:/app
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000/api/v1
+    command: sh -c "npm ci && npm run dev -- --host 0.0.0.0"
+    ports:
+      - "5173:5173"
+    depends_on: [api]
+volumes:
+  aea_data:
