@@ -1,8 +1,23 @@
 # API Evolution Assurance
 
-Repository-aware semantic API evolution analysis that detects breaking changes, maps affected consumer code, propagates blast radius through repository dependencies, produces human-reviewable migration operations, and gates release with deterministic engineering evidence.
+A repository-aware developer-tooling system for detecting semantic API breakage, mapping affected consumer code, propagating blast radius, and generating controlled migration plans. The project links OpenAPI contract semantics to Python/JS/TS/Svelte source structure and enforces a human-approval boundary before exact code patches can be applied.
 
-This project consolidates the useful assets from `api_to_app`, `code_review`, `mcp_scout`, and selected `multi_agent` concepts into a materially deeper developer-infrastructure system.
+## Engineering profile
+
+This repository demonstrates:
+
+- OpenAPI 2/3 canonicalization and semantic breaking-change classification
+- Python AST analysis plus structural JS/TS/Svelte API-usage analysis
+- Dependency graph construction and blast-radius propagation
+- Typed migration planning with exact patch evidence
+- Explicit human approval before patch execution
+- SQLite persistence for contracts, repositories, and analyses
+- Optional GitHub PR publication after approved changes
+- Backend tests, frontend checks/build, Docker, and release-gate validation
+
+## Reliability and scope
+
+The strongest claim is safe migration assistance and release assurance. Automated changes are intentionally gated; the tool is not an unconstrained autonomous code-rewriting agent.
 
 ## Product thesis
 
@@ -234,7 +249,7 @@ Current backend regression suite covers:
 
 ## Production extensions
 
-The current repository is a strong production-shaped portfolio checkpoint. The next infrastructure layer for a hosted commercial service would be:
+The current repository is a strong production-shaped engineering checkpoint. The next infrastructure layer for a hosted commercial service would be:
 
 1. isolated disposable execution workers (Firecracker/gVisor/container sandbox);
 2. GitHub App installation/OAuth as the preferred multi-tenant credential model instead of a deployment token;
@@ -243,4 +258,3 @@ The current repository is a strong production-shaped portfolio checkpoint. The n
 5. contract version history and customer-repository subscription graph;
 6. patch evaluation benchmarks across recorded API mutations;
 7. tenancy, auth, encryption, retention, and audit logging.
-
